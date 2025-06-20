@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import './config/db.js'; // ✅ or your Supabase config
+import './config/supabase.js'; // ✅ Import your Supabase client
 
 import authRoutes from './routes/authRoutes.js'; // ✅ Import your auth routes
 
@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use('/auth', authRoutes); // e.g. /auth/login, /auth/register
+app.use('/api/auth', authRoutes); // e.g. /auth/login, /auth/register
 
 // Server
 const PORT = process.env.PORT || 4000;
