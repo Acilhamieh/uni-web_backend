@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import './config/supabase.js'; // ✅ Import your Supabase client
 import doctorRoutes from './routes/doctorRoutes.js';
 import authRoutes from './routes/authRoutes.js'; // ✅ Import your auth routes
+import courseRoutes from './routes/courseRoutes.js';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth', authRoutes); // e.g. /auth/login, /auth/register
 app.use('/api/doctors', doctorRoutes);
+app.use('/api/courses', courseRoutes);
 // Server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
