@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 // CORS setup
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:5173'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -37,3 +37,4 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
