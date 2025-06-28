@@ -28,3 +28,15 @@ export const findUserByEmail = async (email) => {
   if (error) throw new Error(error.message);
   return data;
 };
+//get all users 
+export const getAllUsers = async () => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('id, firstname, lastname, email, role, custom_user_id, created_at');
+
+  if (error) {
+    throw new Error(`Error fetching users: ${error.message}`);
+  }
+
+  return data;
+};

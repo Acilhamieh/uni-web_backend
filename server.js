@@ -2,10 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import './config/supabase.js'; // ✅ Import your Supabase client
+import './config/supabase.js'; 
 import doctorRoutes from './routes/doctorRoutes.js';
-import authRoutes from './routes/authRoutes.js'; // ✅ Import your auth routes
+import authRoutes from './routes/authRoutes.js'; 
 import courseRoutes from './routes/courseRoutes.js';
+import userRoutes from './routes/userRoutes.js'; 
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes); // e.g. /auth/login, /auth/register
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api', userRoutes); // Example base path
 // Server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
