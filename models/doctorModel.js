@@ -92,12 +92,29 @@ export async function updateDoctor(id, { first_name, last_name, phone, email, of
 }
 // ❌ Delete a doctor
 export async function deleteDoctor(id) {
-  const { error } = await supabase
+  // Check if doctor exists
+  const { data: existingDoctor, error: fetchError } = await supabase
+    .from('doctors')
+    .select('id')
+    .eq('id', id)
+    .single();
+
+  if (fetchError) {
+    if (fetchError.code === 'PGRST116') {
+      // Row not found
+      throw new Error('Doctor not found.');
+    } else {
+      throw new Error(fetchError.message);
+    }
+  }
+
+  // Proceed to delete
+  const { error: deleteError } = await supabase
     .from('doctors')
     .delete()
     .eq('id', id);
 
-  if (error) throw new Error(error.message);
+  if (deleteError) throw new Error(deleteError.message);
 
   return true;
 }
