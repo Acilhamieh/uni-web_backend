@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  getAllDoctors,
+  handleGetAllDoctors,
   addDoctor,
   updateDoctor,
   deleteDoctor,
@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', getAllDoctors);//done 
+router.get('/', handleGetAllDoctors);//done 
 router.post('/', addDoctor);//done
 router.put('/:id', updateDoctor);//done
 router.delete('/:id', deleteDoctor);//done

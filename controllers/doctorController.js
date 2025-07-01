@@ -1,12 +1,18 @@
 import * as doctorModel from '../models/doctorModel.js';
 
 // GET /api/doctors
-export async function getAllDoctors(req, res) {
+export async function handleGetAllDoctors(req, res) {
   try {
     const doctors = await doctorModel.getAllDoctors();
-    res.status(200).json(doctors);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json({
+      success: true,
+      data: doctors,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 }
 

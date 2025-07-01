@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/courses', courseRoutes);
-app.use('/api', userRoutes); // Example base path
+app.use('/api', userRoutes); // Example base path 
 // Server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

@@ -8,7 +8,20 @@ export async function getAllDoctors() {
     .order('id', { ascending: false });
 
   if (error) throw new Error(error.message);
-  return data;
+
+  const formattedData = data.map((doctor) => ({
+    id: doctor.id,
+    full_name: `${doctor.first_name} ${doctor.last_name}`,
+    phone: doctor.phone,
+    email: doctor.email,
+    office_room: doctor.office_room,
+    linkedin_url: doctor.linkedin_url,
+    created_by: doctor.created_by,
+    created_at: doctor.created_at,
+    updated_at: doctor.updated_at,
+  }));
+
+  return formattedData;
 }
 
 // ➕ Add a new doctor
