@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   handleGetAllDoctors,
-  addDoctor,
+  handleAddDoctor,
   updateDoctor,
   deleteDoctor,
 } from '../controllers/doctorController.js';
@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.get('/', handleGetAllDoctors);//done 
-router.post('/', addDoctor);//done
+router.post('/', handleAddDoctor);//done
 router.put('/:id', updateDoctor);//done
 router.delete('/:id', deleteDoctor);//done
 

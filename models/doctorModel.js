@@ -25,15 +25,36 @@ export async function getAllDoctors() {
 }
 
 // ➕ Add a new doctor
-export async function addDoctor({ first_name, last_name, linkedin_url, created_by }) {
+export async function addDoctor({ first_name, last_name, phone, email, office_room, linkedin_url, created_by }) {
   const { data, error } = await supabase
     .from('doctors')
-    .insert([{ first_name, last_name, linkedin_url, created_by }])
+    .insert([{
+      first_name,
+      last_name,
+      phone,
+      email,
+      office_room,
+      linkedin_url,
+      created_by,
+    }])
     .select()
     .single();
 
   if (error) throw new Error(error.message);
-  return data;
+
+  const formattedDoctor = {
+    id: data.id,
+    full_name: `${data.first_name} ${data.last_name}`,
+    phone: data.phone,
+    email: data.email,
+    office_room: data.office_room,
+    linkedin_url: data.linkedin_url,
+    created_by: data.created_by,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+  };
+
+  return formattedDoctor;
 }
 
 // 🖊️ Update a doctor

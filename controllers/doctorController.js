@@ -17,16 +17,22 @@ export async function handleGetAllDoctors(req, res) {
 }
 
 // POST /api/doctors
-export async function addDoctor(req, res) {
+export async function handleAddDoctor(req, res) {
   try {
-    const { first_name, last_name, linkedin_url, created_by } = req.body;
-    const doctor = await doctorModel.addDoctor({ first_name, last_name, linkedin_url, created_by });
-    res.status(201).json(doctor);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const newDoctor = await doctorModel.addDoctor(req.body);
+    res.status(201).json({
+      success: true,
+      message: "Doctor added successfully.",
+      data: newDoctor,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-}
 
+}
 // PUT /api/doctors/:id
 export async function updateDoctor(req, res) {
   try {
