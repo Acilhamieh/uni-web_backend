@@ -51,12 +51,17 @@ export async function handleUpdateDoctor(req, res) {
 }
 
 // DELETE /api/doctors/:id
-export async function deleteDoctor(req, res) {
+export async function handleDeleteDoctor(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    await doctorModel.deleteDoctor(id);
-    res.status(200).json({ message: 'Doctor deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    await doctorModel.deleteDoctor(req.params.id);
+    res.status(200).json({
+      success: true,
+      message: "Doctor deleted successfully.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 }

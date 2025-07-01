@@ -98,5 +98,6 @@ export async function deleteDoctor(id) {
     .eq('id', id);
 
   if (error) throw new Error(error.message);
+
   return true;
 }

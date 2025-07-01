@@ -3,7 +3,7 @@ import {
   handleGetAllDoctors,
   handleAddDoctor,
   handleUpdateDoctor,
-  deleteDoctor,
+  handleDeleteDoctor,
 } from '../controllers/doctorController.js';
 
 const router = express.Router();
@@ -11,6 +11,6 @@ const router = express.Router();
 router.get('/', handleGetAllDoctors);//done 
 router.post('/', handleAddDoctor);//done
 router.put('/:id', handleUpdateDoctor);//done
-router.delete('/:id', deleteDoctor);//done
+router.delete('/:id', handleDeleteDoctor);//done
 
 export default router;
