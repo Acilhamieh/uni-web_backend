@@ -58,12 +58,15 @@ export async function addDoctor({ first_name, last_name, phone, email, office_ro
 }
 
 // 🖊️ Update a doctor
-export async function updateDoctor(id, { first_name, last_name, linkedin_url }) {
+export async function updateDoctor(id, { first_name, last_name, phone, email, office_room, linkedin_url }) {
   const { data, error } = await supabase
     .from('doctors')
     .update({
       first_name,
       last_name,
+      phone,
+      email,
+      office_room,
       linkedin_url,
       updated_at: new Date().toISOString(),
     })
@@ -72,9 +75,21 @@ export async function updateDoctor(id, { first_name, last_name, linkedin_url }) 
     .single();
 
   if (error) throw new Error(error.message);
-  return data;
-}
 
+  const formattedDoctor = {
+    id: data.id,
+    full_name: `${data.first_name} ${data.last_name}`,
+    phone: data.phone,
+    email: data.email,
+    office_room: data.office_room,
+    linkedin_url: data.linkedin_url,
+    created_by: data.created_by,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+  };
+
+  return formattedDoctor;
+}
 // ❌ Delete a doctor
 export async function deleteDoctor(id) {
   const { error } = await supabase

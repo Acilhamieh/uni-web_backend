@@ -34,14 +34,19 @@ export async function handleAddDoctor(req, res) {
 
 }
 // PUT /api/doctors/:id
-export async function updateDoctor(req, res) {
+export async function handleUpdateDoctor(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    const { first_name, last_name, linkedin_url } = req.body;
-    const doctor = await doctorModel.updateDoctor(id, { first_name, last_name, linkedin_url });
-    res.status(200).json(doctor);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const updatedDoctor = await doctorModel.updateDoctor(req.params.id, req.body);
+    res.status(200).json({
+      success: true,
+      message: "Doctor updated successfully.",
+      data: updatedDoctor,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 }
 
