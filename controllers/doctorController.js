@@ -26,13 +26,22 @@ export async function handleAddDoctor(req, res) {
       data: newDoctor,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    if (error.message.includes('already exists')) {
+      // Email duplication error
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    } else {
+      // Other server errors
+      res.status(500).json({
+        success: false,
+        message: "Server error: " + error.message,
+      });
+    }
   }
-
 }
+
 // PUT /api/doctors/:id
 export async function handleUpdateDoctor(req, res) {
   try {

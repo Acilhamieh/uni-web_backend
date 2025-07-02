@@ -1,47 +1,40 @@
-import { addCourse ,getAllCourses,deleteCourse } from '../models/courseModel.js';
-
-export async function createCourse(req, res) {
+import * as CourseaModel  from '../models/courseModel.js';
+// Add a new course
+export async function handleAddCourse(req, res) {
   try {
-    const {
-      code,
-      name,
-      credits,
-      hours_td,
-      hours_tp,
-      hours_course,
-      classroom_url,
-      instructor_id,
-      created_by,
-      year,
-      semester,
-    } = req.body;
+    const courseData = req.body;
 
-    const newCourse = await addCourse({
-      code,
-      name,
-      credits,
-      hours_td,
-      hours_tp,
-      hours_course,
-      classroom_url,
-      instructor_id,
-      created_by,
-      year,
-      semester,
+    const newCourse = await CourseaModel.addCourse(courseData);
+
+    res.status(201).json({
+      success: true,
+      message: 'Course added successfully.',
+      data: newCourse,
     });
-
-    res.status(201).json(newCourse);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    console.error('Add course error:', error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 }
 //get all courses 
-export async function fetchAllCourses(req, res) {
+export async function handleGetAllCourses(req, res) {
   try {
-    const courses = await getAllCourses();
-    res.status(200).json(courses);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const courses = await CourseaModel.getAllCourses();
+
+    res.status(200).json({
+      success: true,
+      message: 'Courses retrieved successfully.',
+      data: courses,
+    });
+  } catch (error) {
+    console.error('Get all courses error:', error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 }
 //delete course

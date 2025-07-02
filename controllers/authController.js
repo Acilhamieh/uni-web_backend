@@ -13,15 +13,21 @@ export const register = async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
 
-    await createUser({ firstName, lastName, email, password, role });
+    const newUser = await createUser({ firstName, lastName, email, password, role });
 
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({
+      success: true,
+      message: 'User registered successfully.',
+      data: newUser,
+    });
   } catch (err) {
     console.error('Register error:', err);
-    res.status(400).json({ error: err.message });
+    res.status(400).json({
+      success: false,
+      message: err.message,
+    });
   }
 };
-
 // -----------------------------
 // Login
 // -----------------------------
