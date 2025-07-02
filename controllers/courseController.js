@@ -58,16 +58,44 @@ export async function handleUpdateCourse(req, res) {
     });
   }
 }
-//delete course
-export async function removeCourse(req, res) {
+//get a course by id
+export async function handleGetCourseById(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    await deleteCourse(id);
-    res.status(200).json({ message: 'Course deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const { id } = req.params;
+
+    const course = await CourseaModel.getCourseById(Number(id));
+
+    res.status(200).json({
+      success: true,
+      message: 'Course retrieved successfully.',
+      data: course,
+    });
+  } catch (error) {
+    console.error('Get course by id error:', error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 }
+//delete course
+export async function handleDeleteCourse(req, res) {
+  try {
+    const { id } = req.params;
 
+    const deleted = await CourseaModel.deleteCourse(Number(id));
+
+    res.status(200).json({
+      success: true,
+      message: 'Course deleted successfully.',
+    });
+  } catch (error) {
+    console.error('Delete course error:', error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
 
 
