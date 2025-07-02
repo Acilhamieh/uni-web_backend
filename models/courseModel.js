@@ -119,6 +119,68 @@ export async function getAllCourses() {
 
   return formattedCourses;
 }
+//update course 
+export async function updateCourse(id, {
+  code,
+  name,
+  credits,
+  hours_td,
+  hours_tp,
+  hours_course,
+  classroom_url = null,
+  created_by,
+  semester,
+  level,
+  prequisties = null,
+  description,
+  objective,
+  instructor_id,
+}) {
+  const { data, error } = await supabase
+    .from('courses')
+    .update({
+      code,
+      name,
+      credits,
+      hours_td,
+      hours_tp,
+      hours_course,
+      classroom_url,
+      created_by,
+      semester,
+      level,
+      prequisties,
+      description,
+      objective,
+      instructor_id,
+      // updated_at is handled by trigger, no need to set here
+    })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return {
+    id: data.id,
+    code: data.code,
+    name: data.name,
+    credits: data.credits,
+    hours_td: data.hours_td,
+    hours_tp: data.hours_tp,
+    hours_course: data.hours_course,
+    classroom_url: data.classroom_url,
+    created_by: data.created_by,
+    semester: data.semester,
+    level: data.level,
+    prequisties: data.prequisties,
+    description: data.description,
+    objective: data.objective,
+    instructor_id: data.instructor_id,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+  };
+}
 
 //delete course
 export async function deleteCourse(id) {

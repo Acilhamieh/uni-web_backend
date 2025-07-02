@@ -37,6 +37,27 @@ export async function handleGetAllCourses(req, res) {
     });
   }
 }
+//update a course 
+export async function handleUpdateCourse(req, res) {
+  try {
+    const { id } = req.params;
+    const courseData = req.body;
+
+    const updatedCourse = await CourseaModel.updateCourse(Number(id), courseData);
+
+    res.status(200).json({
+      success: true,
+      message: 'Course updated successfully.',
+      data: updatedCourse,
+    });
+  } catch (error) {
+    console.error('Update course error:', error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
 //delete course
 export async function removeCourse(req, res) {
   try {
