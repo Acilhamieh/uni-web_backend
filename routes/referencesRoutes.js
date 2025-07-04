@@ -7,5 +7,5 @@ const router = express.Router();
 router.get("/course/:courseId", handlegetReferencesByCourseId);//success but not sure about response format
 router.post("/", handleAddReference);//done
 router.delete("/:id", handleDeleteReference);//done
-router.put("/:id", handleUpdateReference);
+router.put("/:id", handleUpdateReference);//done
 export default router;
