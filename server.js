@@ -7,6 +7,7 @@ import doctorRoutes from './routes/doctorRoutes.js';
 import authRoutes from './routes/authRoutes.js'; 
 import courseRoutes from './routes/courseRoutes.js';
 import userRoutes from './routes/userRoutes.js'; 
+import referencesRoutes from './routes/referencesRoutes.js';
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api', userRoutes); // Example base path 
+app.use('/api/references', referencesRoutes);
 // Server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
