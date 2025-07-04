@@ -1,4 +1,5 @@
 // models/userModel.js
+import supabase from '../config/supabase.js';
 import bcrypt from 'bcrypt';
 export const createUser = async ({ firstName, lastName, email, password, role = 'student' }) => {
   const hashedPassword = await bcrypt.hash(password, 10);

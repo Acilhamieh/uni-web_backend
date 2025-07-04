@@ -15,3 +15,22 @@ export async function handleGetAllNews(req, res) {
     });
   }
 }
+export async function handleAddNews(req, res) {
+  try {
+    const newsData = req.body;
+    const file = req.file;
+
+    const newNews = await NewsModel.addNews(newsData, file);
+
+    res.status(201).json({
+      success: true,
+      message: "News added successfully.",
+      data: newNews,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
