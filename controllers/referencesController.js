@@ -56,3 +56,28 @@ export async function handleDeleteReference(req, res) {
     });
   }
 }
+export async function handleUpdateReference(req, res) {
+  const { id } = req.params;
+
+  try {
+    const updatedReference = await ReferencesModel.updateReference(id, req.body);
+
+    if (updatedReference === null) {
+      return res.status(404).json({
+        success: false,
+        message: "Reference not found.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Reference updated successfully.",
+      data: updatedReference,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}

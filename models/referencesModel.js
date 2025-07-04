@@ -44,3 +44,22 @@ export async function deleteReference(id) {
 
   return true; // deleted successfully
 }
+//update a reference by id
+export async function updateReference(id, updatedData) {
+  const { data, error } = await supabase
+    .from("references")
+    .update(updatedData)
+    .eq("id", id)
+    .select(); // returns updated rows
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data || data.length === 0) {
+    // No rows updated => not found
+    return null;
+  }
+
+  return data[0]; // return the updated reference
+}
