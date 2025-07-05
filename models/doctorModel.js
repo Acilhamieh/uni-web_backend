@@ -11,6 +11,8 @@ export async function getAllDoctors() {
 
   const formattedData = data.map((doctor) => ({
     id: doctor.id,
+    first_name: doctor.first_name, // add this
+    last_name: doctor.last_name,   // add this
     full_name: `${doctor.first_name} ${doctor.last_name}`,
     phone: doctor.phone,
     email: doctor.email,
