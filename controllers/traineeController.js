@@ -15,3 +15,19 @@ export async function handleGetAllTrainees(req, res) {
     });
   }
 }
+//add a new trainee
+export async function handleAddTrainee(req, res) {
+  try {
+    const newTrainee = await traineeModel.addTrainee(req.body);
+    res.status(201).json({
+      success: true,
+      message: "Trainee added successfully.",
+      data: newTrainee,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
