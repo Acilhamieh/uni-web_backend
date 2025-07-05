@@ -63,3 +63,28 @@ export async function updateReference(id, updatedData) {
 
   return data[0]; // return the updated reference
 }
+//get all references 
+export async function getAllReferences() {
+  const { data, error } = await supabase
+    .from("references")
+    .select(`
+      *,
+      courses(name)
+    `)
+    .order('id', { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const formattedData = data.map(ref => {
+    // Destructure to remove 'courses' from the returned object
+    const { courses, ...rest } = ref;
+    return {
+      ...rest,
+      course_name: courses ? courses.name : null,
+    };
+  });
+
+  return formattedData;
+}

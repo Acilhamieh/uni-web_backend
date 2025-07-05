@@ -81,3 +81,18 @@ export async function handleUpdateReference(req, res) {
     });
   }
 }
+export async function handleGetAllReferences(req, res) {
+  try {
+    const references = await ReferencesModel.getAllReferences();
+    res.status(200).json({
+      success: true,
+      message: "References retrieved successfully.",
+      data: references,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}

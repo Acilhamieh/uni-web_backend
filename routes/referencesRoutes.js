@@ -1,5 +1,5 @@
 import express from "express";
-import { handlegetReferencesByCourseId,handleAddReference,handleDeleteReference ,handleUpdateReference} from "../controllers/referencesController.js";
+import { handlegetReferencesByCourseId,handleAddReference,handleDeleteReference,handleUpdateReference,handleGetAllReferences} from "../controllers/referencesController.js";
 
 const router = express.Router();
 
@@ -8,4 +8,6 @@ router.get("/course/:courseId", handlegetReferencesByCourseId);//success but not
 router.post("/", handleAddReference);//done
 router.delete("/:id", handleDeleteReference);//done
 router.put("/:id", handleUpdateReference);//done
+router.get("/", handleGetAllReferences);//done
+
 export default router;
