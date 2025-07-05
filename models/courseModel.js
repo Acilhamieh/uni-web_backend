@@ -83,6 +83,7 @@ export async function getAllCourses() {
       prequisties,
       description,
       objective,
+      instructor_id,   
       created_at,
       updated_at,
       doctors (
@@ -94,7 +95,6 @@ export async function getAllCourses() {
 
   if (error) throw new Error(error.message);
 
-  // Format the response to include instructor_name only
   const formattedCourses = data.map(course => ({
     id: course.id,
     code: course.code,
@@ -110,6 +110,7 @@ export async function getAllCourses() {
     prequisties: course.prequisties,
     description: course.description,
     objective: course.objective,
+    instructor_id: course.instructor_id, // added to response
     instructor_name: course.doctors
       ? `${course.doctors.first_name} ${course.doctors.last_name}`
       : null,
