@@ -45,7 +45,7 @@ export const findUserByEmail = async (email) => {
 export const getAllUsers = async () => {
   const { data, error } = await supabase
     .from('users')
-    .select('id, firstname, lastname, email, role, custom_user_id, created_at');
+    .select('id, first_name, last_name, email, role, custom_user_id, created_at, updated_at');
 
   if (error) {
     throw new Error(`Error fetching users: ${error.message}`);
