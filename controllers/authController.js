@@ -11,9 +11,9 @@ const COOKIE_NAME = 'token';
 // -----------------------------
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, role } = req.body;
+    const { first_name, last_name, email, password, role } = req.body;
 
-    const newUser = await createUser({ firstName, lastName, email, password, role });
+    const newUser = await createUser({ first_name, last_name, email, password, role });
 
     res.status(201).json({
       success: true,

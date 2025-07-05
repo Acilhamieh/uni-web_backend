@@ -1,14 +1,14 @@
 // models/userModel.js
 import supabase from '../config/supabase.js';
 import bcrypt from 'bcrypt';
-export const createUser = async ({ firstName, lastName, email, password, role = 'student' }) => {
+export const createUser = async ({ first_name, last_name, email, password, role = 'student' }) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const { data, error } = await supabase
     .from('users')
     .insert([{
-      first_name: firstName,
-      last_name: lastName,
+      first_name,
+      last_name,
       email,
       password: hashedPassword,
       role,
