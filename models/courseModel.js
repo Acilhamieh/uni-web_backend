@@ -257,3 +257,60 @@ export async function deleteCourse(id) {
 
   return true;
 }
+// 🔥 Get All Courses By Semester
+export async function getCoursesBySemester(semester) {
+  const { data, error } = await supabase
+    .from('courses')
+    .select(`
+      id,
+      code,
+      name,
+      credits,
+      hours_td,
+      hours_tp,
+      hours_course,
+      classroom_url,
+      created_by,
+      semester,
+      level,
+      prequisties,
+      description,
+      objective,
+      instructor_id,   
+      created_at,
+      updated_at,
+      doctors (
+        first_name,
+        last_name
+      )
+    `)
+    .eq('semester', semester)
+    .order('id', { ascending: false });
+
+  if (error) throw new Error(error.message);
+
+  const formattedCourses = data.map(course => ({
+    id: course.id,
+    code: course.code,
+    name: course.name,
+    credits: course.credits,
+    hours_td: course.hours_td,
+    hours_tp: course.hours_tp,
+    hours_course: course.hours_course,
+    classroom_url: course.classroom_url,
+    created_by: course.created_by,
+    semester: course.semester,
+    level: course.level,
+    prequisties: course.prequisties,
+    description: course.description,
+    objective: course.objective,
+    instructor_id: course.instructor_id,
+    instructor_name: course.doctors
+      ? `${course.doctors.first_name} ${course.doctors.last_name}`
+      : null,
+    created_at: course.created_at,
+    updated_at: course.updated_at,
+  }));
+
+  return formattedCourses;
+}

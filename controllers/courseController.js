@@ -97,5 +97,29 @@ export async function handleDeleteCourse(req, res) {
     });
   }
 }
+export async function getCoursesBySemesterController(req, res) {
+  try {
+    const { semester } = req.params;
 
+    if (!semester) {
+      return res.status(400).json({
+        success: false,
+        message: 'Semester parameter is required.',
+      });
+    }
+
+    const courses = await CourseaModel.getCoursesBySemester(semester);
+
+    return res.status(200).json({
+      success: true,
+      data: courses,
+    });
+  } catch (error) {
+    console.error('Get courses by semester error:', error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Internal server error.',
+    });
+  }
+}
 
