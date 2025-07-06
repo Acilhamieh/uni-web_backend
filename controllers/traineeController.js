@@ -31,3 +31,29 @@ export async function handleAddTrainee(req, res) {
     });
   }
 }
+//delete trainee by id
+export async function handleDeleteTrainee(req, res) {
+  const { id } = req.params;
+
+  try {
+    const deletedTrainee = await traineeModel.deleteTrainee(id);
+
+    if (!deletedTrainee) {
+      return res.status(404).json({
+        success: false,
+        message: "Trainee not found.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Trainee deleted successfully.",
+      data: deletedTrainee,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}

@@ -10,6 +10,7 @@ import userRoutes from './routes/userRoutes.js';
 import referencesRoutes from './routes/referencesRoutes.js';
 import newsRoutes from './routes/newsRoutes.js';
 import traineeRoutes from './routes/traineeRoutes.js';
+import sessionRoutes from './routes/sessionRoutes.js';
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use('/api', userRoutes); // Example base path
 app.use('/api/references', referencesRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/trainees', traineeRoutes);
+app.use('/api/sessions', sessionRoutes);
 
 // Server
 const PORT = process.env.PORT || 4000;
