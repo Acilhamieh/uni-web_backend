@@ -53,3 +53,19 @@ export async function addProject({
     throw err;
   }
 }
+//get all projects
+export async function getAllProjects() {
+  try {
+    const { data, error } = await supabase.rpc('get_projects_with_supervisor_name');
+
+    if (error) {
+      console.error('❌ Supabase RPC error:', JSON.stringify(error, null, 2));
+      throw new Error(error.message || 'Fetch failed without message');
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Get all projects model error:', err);
+    throw err;
+  }
+}

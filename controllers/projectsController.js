@@ -36,3 +36,22 @@ export async function createProjectController(req, res) {
     });
   }
 }
+//gett all projects
+export async function getAllProjectsController(req, res) {
+  try {
+    const projects = await projectModel.getAllProjects();
+
+    res.status(200).json({
+      success: true,
+      message: 'Projects fetched successfully',
+      data: projects,
+    });
+  } catch (err) {
+    console.error('❌ Get all projects controller error:', err);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching projects',
+      error: err.message,
+    });
+  }
+}
