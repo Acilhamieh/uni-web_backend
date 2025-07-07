@@ -55,3 +55,32 @@ export async function getAllProjectsController(req, res) {
     });
   }
 }
+//upate project change the status of the project
+export async function updateProjectStatusController(req, res) {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!['accepted', 'rejected'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid status value. Must be accepted or rejected',
+      });
+    }
+
+    const updatedProject = await projectModel.updateProjectStatus(id, status);
+
+    res.status(200).json({
+      success: true,
+      message: `Project status updated to ${status}`,
+      data: updatedProject,
+    });
+  } catch (err) {
+    console.error('❌ Update project status controller error:', err);
+    res.status(500).json({
+      success: false,
+      message: 'Error updating project status',
+      error: err.message,
+    });
+  }
+}

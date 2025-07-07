@@ -69,3 +69,23 @@ export async function getAllProjects() {
     throw err;
   }
 }
+export async function updateProjectStatus(projectId, status) {
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .update({ status })
+      .eq('id', projectId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('❌ Supabase update error:', JSON.stringify(error, null, 2));
+      throw new Error(error.message || 'Update failed without message');
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Update project status model error:', err);
+    throw err;
+  }
+}

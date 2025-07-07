@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../middlewares/uploadMiddleware.js'; // multer middleware
-import { createProjectController,getAllProjectsController } from '../controllers/projectsController.js';
+import { createProjectController,getAllProjectsController,updateProjectStatusController } from '../controllers/projectsController.js';
 
 const router = express.Router();
 
@@ -14,5 +14,6 @@ router.post(
   createProjectController
 );
 router.get('/', getAllProjectsController);
+router.patch('/:id/status', updateProjectStatusController);
 
 export default router;
