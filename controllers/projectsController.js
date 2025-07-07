@@ -4,7 +4,7 @@ export async function createProjectController(req, res) {
   try {
     const {
       title,
-      supervisor,
+      supervisor_id,
       academic_year,
       description,
       team_members,
@@ -14,7 +14,7 @@ export async function createProjectController(req, res) {
 
     const newProject = await projectModel.addProject({
       title,
-      supervisor,
+      supervisor_id,
       academic_year,
       description,
       team_members: team_members ? JSON.parse(team_members) : null, // parse if sent as JSON string
