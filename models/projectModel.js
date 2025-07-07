@@ -3,7 +3,7 @@ import { uploadFile } from './fileUpload.js';
 
 export async function addProject({
   title,
-  supervisor,
+  supervisor_id,
   academic_year,
   description,
   team_members,
@@ -31,7 +31,7 @@ export async function addProject({
       .insert([
         {
           title,
-          supervisor: Number(supervisor),
+          supervisor_id: Number(supervisor_id),
           academic_year,
           description,
           team_members, // JSONB field
